@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+/*size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
@@ -126,4 +126,25 @@ void	*ft_izq_line(char *izq_line)
 		str[j++] = izq_line[i++];
 	free(izq_line);
 	return (str);
+}*/
+
+int		found_newline(t_list *list)
+{
+	int		i;
+	if (NULL == list)
+		return (0);
+	while (list)
+	{
+		i = 0;
+		while(list ->str_buf[i] && i < BUFFER_SIZE)
+		{
+			if (list ->str_buf[i])
+			{
+				
+			}
+			
+		}
+	}
+	
+	
 }
