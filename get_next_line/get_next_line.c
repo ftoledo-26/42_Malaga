@@ -6,100 +6,105 @@
 /*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 22:29:46 by ftoledo-          #+#    #+#             */
-/*   Updated: 2024/11/19 23:14:03 by ftoledo-         ###   ########.fr       */
+/*   Updated: 2025/03/02 08:58:40 by ftoledo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-vodi	polish_list(t_list **list)
+static char	*fill_line_buffer(int fd, char *left_c, char *buffer);
+static char	*set_line(char *line_buffer);
+char		*ft_strchr(char *s, int c);
+
+char	*get_next_line(int fd)
 {
-	t_list	*last_node;
-	t_list	*clean_node;
-	int 	i;
-	int		k;
-	char	*buf;
+	static char	*left_c;
+	char		*line;
+	char		*buffer;
 
-	buf = malloc(BUFFER_SIZE +1);
-	clean_node = malloc(sizeof(t_list));
-	if (NULL == buf || NULL == clean_node)
-		return ;
-	last_node = find_last_node(*list)
-	i = 0;
-	k = 0;
-	whiele(last_node ->str_buf[i] && last_node -> strbuff[++i])
-		buf{k++} = last_node->str_buf[i]
-	buf[k]  = '\0';
-	clean_node ->str_buf = buf;
-	clean_node -> next = NULL;
-	dealloc(list, clean_node,buf);	
-}
-char	*get_line(t_list *list)
- {
-	int 	str_len;
-	char	*next_len;
-
-	if(NULL = list)
-		return (NULL);
-	str_len = len_to_newline(list);
-	next_str = malloc(str_len + 1);
-	if (NULL == next_len)
-		return (NULL);
-	copy_str(list,next_str);
-	return (next_str);
- }
-
-
-void	append(t_list **list, char buf)
-{
-	list_t		*new_list;
-	list_t		*last_list;
-
-	last_list = find_last_node(*list)
-	new_list = malloc(sizeof(t_list ));
-	if (NULL = new_list)
-		return ;
-	if (NULL = last_list)
-		*list = new_list;
-	else
-		last_list -> str_buf = new_list;
-	new_list ->str_buf = new_list;
-	new_list ->next = NULL;
-}
-
-void	create_list(t_list **list, int fd)
-{
-	int		char_read;
-	char	*buf;
-
-	while (!found_newline)
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		buf = malloc(BUFFER_SIZE + 1) 
-		if (NULL = buf)
-			return (NULL);
-		char_read = read(fd,buf,BUFFER_SIZE);
-		if (!char_read)
-		{
-			free (buf);
-			return;
-		}
-		buf*[char_read] = '\0';
-		append(list,buf);
+		free(left_c);
+		free(buffer);
+		left_c = NULL;
+		buffer = NULL;
+		return (NULL);
 	}
-	
+	if (!buffer)
+		return (NULL);
+	line = fill_line_buffer(fd, left_c, buffer);
+	free(buffer);
+	buffer = NULL;
+	if (!line)
+		return (NULL);
+	left_c = set_line(line);
+	return (line);
 }
 
-char	*ft_get_next_line(int fd)
+static char	*set_line(char *line_buffer)
 {
-	static t_list = *list = NULL;
-	char			*next_line;
+	char	*left_c;
+	ssize_t	i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line,0)<0)
+	i = 0;
+	while (line_buffer[i] != '\n' && line_buffer[i] != '\0')
+		i++;
+	if (line_buffer[i] == 0 || line_buffer[1] == 0)
 		return (NULL);
-	cretate_list(&list, fd);
-	if (list == NULL)
-		return (NULL);
-	next_line = get_line(&list);
-	polish_list(&list);
-	return(next_line);
+	left_c = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - i);
+	if (*left_c == 0)
+	{
+		free(left_c);
+		left_c = NULL;
+	}
+	line_buffer[i + 1] = 0;
+	return (left_c);
+}
+
+static char	*fill_line_buffer(int fd, char *left_c, char *buffer)
+{
+	ssize_t	b_read;
+	char	*tmp;
+
+	b_read = 1;
+	while (b_read > 0)
+	{
+		b_read = read(fd, buffer, BUFFER_SIZE);
+		if (b_read == -1)
+		{
+			free(left_c);
+			return (NULL);
+		}
+		else if (b_read == 0)
+			break ;
+		buffer[b_read] = 0;
+		if (!left_c)
+			left_c = ft_strdup("");
+		tmp = left_c;
+		left_c = ft_strjoin(tmp, buffer);
+		free(tmp);
+		tmp = NULL;
+		if (ft_strchr(buffer, '\n'))
+			break ;
+	}
+	return (left_c);
+}
+
+char	*ft_strchr(char *s, int c)
+{
+	unsigned int	i;
+	char			cc;
+
+	cc = (char)c;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == cc)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if (s[i] == cc)
+		return ((char *)&s[i]);
+	return (NULL);
 }

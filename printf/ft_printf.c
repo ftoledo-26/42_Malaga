@@ -1,6 +1,5 @@
 #include "ft_printf.h"
 
-static int	ft_select_format(va_list argument, const char word);
 
 int	ft_print_character(int character)
 {
