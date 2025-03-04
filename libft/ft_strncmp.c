@@ -1,4 +1,15 @@
-//Corregido
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/09 20:16:15 by ftoledo-          #+#    #+#             */
+/*   Updated: 2024/11/09 20:28:30 by ftoledo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_strncmp(const char *str, const char *str2, size_t c)
@@ -17,15 +28,4 @@ int	ft_strncmp(const char *str, const char *str2, size_t c)
 	if ((temp == 0) && (i < c))
 		temp = (unsigned char)str[i] - (unsigned char)str2[i];
 	return (temp);
-}
-
-int main()
-{
-    const char str[] = "HolA";
-    const char str2[] = "Hola";
-
-    printf("%d", ft_strncmp(str, str2, 4));
-    if (ft_strncmp < 0)
-        printf("str2 es mayor"); 
-    
 }

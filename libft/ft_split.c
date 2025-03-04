@@ -1,87 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/09 20:51:02 by ftoledo-          #+#    #+#             */
+/*   Updated: 2024/11/12 19:46:15 by ftoledo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int		numstring(char const *s1, char c)
+static char	**ft_free_tab(char **tab, size_t wc)
 {
-	int	comp;
-	int	cles;
+	size_t	i;
 
-	comp = 0;
-	cles = 0;
-	if (*s1 == '\0')
-		return (0);
-	while (*s1 != '\0')
+	i = 0;
+	while (i < wc)
 	{
-		if (*s1 == c)
-			cles = 0;
-		else if (cles == 0)
-		{
-			cles = 1;
-			comp++;
-		}
-		s1++;
-	}
-	return (comp);
-}
-
-static int		numchar(char const *s2, char c, int i)
-{
-	int	lenght;
-
-	lenght = 0;
-	while (s2[i] != c && s2[i] != '\0')
-	{
-		lenght++;
+		free(tab[i]);
 		i++;
 	}
-	return (lenght);
-}
-
-static char		**freee(char const **dst, int j)
-{
-	while (j > 0)
-	{
-		j--;
-		free((void *)dst[j]);
-	}
-	free(dst);
+	free(tab);
 	return (NULL);
 }
 
-static char		**affect(char const *s, char **dst, char c, int l)
+static size_t	ft_word_count(char const *s, char c)
 {
-	int	i;
-	int	j;
-	int	k;
+	int	ptn;
+	int	wc;
 
-	i = 0;
-	j = 0;
-	while (s[i] != '\0' && j < l)
+	wc = 0;
+	ptn = 0;
+	if (!s)
+		return (0);
+	while (s[ptn])
 	{
-		k = 0;
-		while (s[i] == c)
-			i++;
-		dst[j] = (char *)malloc(sizeof(char) * numchar(s, c, i) + 1);
-		if (dst[j] == NULL)
-			return (freee((char const **)dst, j));
-		while (s[i] != '\0' && s[i] != c)
-			dst[j][k++] = s[i++];
-		dst[j][k] = '\0';
-		j++;
+		while (s[ptn] == c)
+			ptn++;
+		if (s[ptn])
+			wc++;
+		while (s[ptn] != c && s[ptn])
+			ptn++;
 	}
-	dst[j] = 0;
-	return (dst);
+	return (wc);
 }
 
-char			**ft_split(char const *s, char c)
+static void	ft_just_pass_the_word(const char *s, size_t *f_curs, char c)
 {
-	char	**dst;
-	int		l;
+	while (s[*f_curs] && s[*f_curs] != c)
+		(*f_curs)++;
+}
 
-	if (s == NULL)
-		return (NULL);
-	l = numstring(s, c);
-	dst = (char **)malloc(sizeof(char *) * (l + 1));
-	if (dst == NULL)
-		return (NULL);
-	return (affect(s, dst, c, l));
+static void	ft_just_pass_the_char(const char *s, size_t *f_curs, char c)
+{
+	while (s[*f_curs] == c)
+		(*f_curs)++;
+}
+
+char	**ft_split(char const *s, char c)
+{
+	size_t	f_curs;
+	size_t	s_curs;
+	size_t	wc;
+	char	**tab;
+
+	f_curs = 0;
+	wc = 0;
+	tab = malloc(sizeof(char *) * (ft_word_count(s, c) + 1));
+	if (!s || !tab)
+		return (ft_free_tab(tab, wc));
+	while (s[f_curs])
+	{
+		ft_just_pass_the_char(s, &f_curs, c);
+		s_curs = f_curs;
+		ft_just_pass_the_word(s, &f_curs, c);
+		if (f_curs > s_curs)
+		{
+			tab[wc] = ft_substr(s, s_curs, f_curs - s_curs);
+			if (!tab[wc])
+				return (ft_free_tab(tab, wc));
+			wc++;
+		}
+	}
+	tab[wc] = (char *) NULL;
+	return (tab);
 }

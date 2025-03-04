@@ -6,7 +6,7 @@
 /*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:23:12 by ftoledo-          #+#    #+#             */
-/*   Updated: 2024/11/11 11:06:29 by ftoledo-         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:42:35 by ftoledo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * return 1 if is alpha and 0 otherwise
  */
 
-int		ft_isalpha(char c);
+int		ft_isalpha(int c);
 
 /**
  * Checks if the character is numeric
@@ -32,7 +32,7 @@ int		ft_isalpha(char c);
  * return 1 if is numeric and 0 otherwise
  */
 
-int		ft_isdigit(char c);
+int		ft_isdigit(int c);
 
 /**
  * Sets the first n bytes of the memory pointed to by s to 0
@@ -105,7 +105,7 @@ int		ft_isalnum(char c);
  * Return 1 if the character is printeble, 0 otherwise
  */
 
-int		ft_isprint(char c);
+int		ft_isprint(int c);
 
 /**
  * the function copies the value of the 'n' bytes from memory area pointed
@@ -139,7 +139,7 @@ int		ft_strlen(const char *str);
  * return 1 if it ascii cahracter and 0 if it not
  */
 
-int		ft_isascii(char c);
+int		ft_isascii(int c);
 
 /**
 

@@ -1,14 +1,26 @@
-//Corregido
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/09 19:52:45 by ftoledo-          #+#    #+#             */
+/*   Updated: 2024/11/09 22:27:31 by ftoledo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void ft_bzero(void *s, unsigned int n) 
+void	*ft_bzero(void *s, unsigned int n)
 {
-unsigned char	*p;
+	unsigned char	*p;
 
-	*p = (unsigned char *)s;
-	while (n > 0) 
+	p = (unsigned char *)s;
+	while (n > 0)
 	{
 		*p++ = 0;
 		n--;
 	}
+	return (p);
 }

@@ -1,5 +1,16 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/02 08:05:15 by ftoledo-          #+#    #+#             */
+/*   Updated: 2025/03/04 07:48:31 by ftoledo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 int	ft_print_character(int character)
 {
@@ -24,8 +35,10 @@ int	ft_printf(const char *str, ...)
 			i++;
 		}
 		else
-		size += ft_printchar(str[i]);
-		i++;
+		{
+			size += ft_printchar(str[i]);
+			i++;
+		}
 	}
 	va_end(argument);
 	return (size);
