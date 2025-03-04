@@ -6,17 +6,11 @@
 /*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 07:37:55 by ftoledo-          #+#    #+#             */
-/*   Updated: 2025/03/04 08:05:55 by ftoledo-         ###   ########.fr       */
+/*   Updated: 2025/03/04 09:19:06 by ftoledo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_printchar(char character)
-{
-	write(1, &character, 1);
-	return (1);
-}
 
 int	ft_printstrin(char *str)
 {
@@ -35,7 +29,7 @@ int	ft_printentero(int num)
 	int	i;
 
 	i = 0;
-	if (num == NULL)
+	if (num == 0)
 		return (ft_printstrin("(null)"));
 	if (num == -2147483648)
 	{
@@ -57,7 +51,7 @@ int	ft_printunsig(unsigned int num)
 	int	i;
 
 	i = 0;
-	if (num == NULL)
+	if (num == 0)
 		return (ft_printstrin("(null)"));
 	else
 	{

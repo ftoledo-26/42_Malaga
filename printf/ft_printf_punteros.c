@@ -6,7 +6,7 @@
 /*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 08:05:07 by ftoledo-          #+#    #+#             */
-/*   Updated: 2025/03/04 07:41:00 by ftoledo-         ###   ########.fr       */
+/*   Updated: 2025/03/04 09:18:32 by ftoledo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_print_pointer(unsigned long long ptr)
 	int	size;
 
 	size = 0;
-	size += ft_print_string("0x");
+	size += ft_printstrin("0x");
 	if (ptr == 0)
-		size += ft_print_character('0');
+		size += ft_printchar('0');
 	else
 	{
 		ft_search_pointer(ptr);
@@ -28,7 +28,7 @@ int	ft_print_pointer(unsigned long long ptr)
 	return (size);
 }
 
-static int	ft_length_pointer(unsigned long long ptr)
+int	ft_length_pointer(unsigned long long ptr)
 {
 	int	len;
 
@@ -41,7 +41,7 @@ static int	ft_length_pointer(unsigned long long ptr)
 	return (len);
 }
 
-static void	ft_search_pointer(unsigned long long ptr)
+void	ft_search_pointer(unsigned long long ptr)
 {
 	if (ptr >= 16)
 		ft_search_pointer(ptr / 16);

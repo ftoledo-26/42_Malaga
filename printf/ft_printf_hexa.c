@@ -6,13 +6,13 @@
 /*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 08:04:32 by ftoledo-          #+#    #+#             */
-/*   Updated: 2025/03/04 07:40:26 by ftoledo-         ###   ########.fr       */
+/*   Updated: 2025/03/04 09:12:48 by ftoledo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_longitud_hexadecimal(unsigned int num)
+int	ft_longitud_hexadecimal(unsigned int num)
 {
 	int	len;
 
@@ -22,9 +22,10 @@ static int	ft_longitud_hexadecimal(unsigned int num)
 		len++;
 		num = num / 16;
 	}
+	return (len);
 }
 
-static void	ft_busca(int num, char pala)
+void	ft_busca(int num, char pala)
 {
 	if (num >= 16)
 	{

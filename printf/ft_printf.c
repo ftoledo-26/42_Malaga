@@ -6,13 +6,13 @@
 /*   By: ftoledo- <ftoledo@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 08:05:15 by ftoledo-          #+#    #+#             */
-/*   Updated: 2025/03/04 07:48:31 by ftoledo-         ###   ########.fr       */
+/*   Updated: 2025/03/04 09:14:54 by ftoledo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_character(int character)
+int	ft_printchar(char character)
 {
 	write(1, &character, 1);
 	return (1);
@@ -44,7 +44,7 @@ int	ft_printf(const char *str, ...)
 	return (size);
 }
 
-static int	ft_select_format(va_list argument, const char word)
+int	ft_select_format(va_list argument, const char word)
 {
 	int	size;
 
