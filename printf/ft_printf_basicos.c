@@ -12,57 +12,62 @@
 
 #include "ft_printf.h"
 
-int	ft_printstrin(char *str)
+int	print_string(char *str)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	if (str == NULL)
-		return (ft_printstrin("(null)"));
-	while (str[i])
-		i += ft_printchar(str[i]);
-	return (i);
+	size = 0;
+	if (str == 0)
+	{
+		return (print_string("(null)"));
+	}
+	while (str[size])
+	{
+		size += ft_print_char(str[size]);
+	}
+	return (size);
 }
 
-int	ft_printentero(int num)
+int	print_numero(int n)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	if (num == 0)
-		return (ft_printstrin("(null)"));
-	if (num == -2147483648)
+	size = 0;
+	if (n == 0)
+		size += ft_print_char('0');
+	if (n == -2147483648)
 	{
-		i += ft_printstrin("-2147483648");
-		return (i);
+		size += print_string("-2147483648");
+		return (size);
 	}
-	if (num < 0)
+	if (n < 0)
 	{
-		i += ft_printchar('-');
-		num = -num;
+		size += ft_print_char('-');
+		n = -n;
 	}
-	if (num > 0)
-		i += ft_printunsig((unsigned int)num);
-	return (i);
+	if (n > 0)
+		size += print_uns((unsigned int)n);
+	return (size);
 }
 
-int	ft_printunsig(unsigned int num)
-{
-	int	i;
 
-	i = 0;
-	if (num == 0)
-		return (ft_printstrin("(null)"));
+int	print_uns(unsigned int n)
+{
+	int	size;
+
+	size = 0;
+	if (n == 0)
+		size += ft_print_char('0');
 	else
 	{
-		if (num / 10 != 0)
-			ft_printchar(num / 10);
-		ft_printchar((num % 10) + '0');
-		while (num > 0)
+		if (n / 10 != 0)
+			print_uns(n / 10);
+		ft_print_char((n % 10) + '0');
+		while (n > 0)
 		{
-			num /= 10;
-			i++;
+			n /= 10;
+			size++;
 		}
 	}
-	return (i);
+	return (size);
 }

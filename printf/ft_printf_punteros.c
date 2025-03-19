@@ -12,23 +12,27 @@
 
 #include "ft_printf.h"
 
-int	ft_print_pointer(unsigned long long ptr)
+static int	ft_len_ptr(unsigned long long ptr);
+
+static void	ft_search_prt(unsigned long long ptr);
+
+int	ft_print_ptr(unsigned long long ptr)
 {
 	int	size;
 
 	size = 0;
-	size += ft_printstrin("0x");
+	size += print_string("0x");
 	if (ptr == 0)
-		size += ft_printchar('0');
+		size += ft_print_char('0');
 	else
 	{
-		ft_search_pointer(ptr);
-		size += ft_length_pointer(ptr);
+		ft_search_prt(ptr);
+		size += ft_len_ptr(ptr);
 	}
 	return (size);
 }
 
-int	ft_length_pointer(unsigned long long ptr)
+static int	ft_len_ptr(unsigned long long ptr)
 {
 	int	len;
 
@@ -41,15 +45,18 @@ int	ft_length_pointer(unsigned long long ptr)
 	return (len);
 }
 
-void	ft_search_pointer(unsigned long long ptr)
+static void	ft_search_prt(unsigned long long ptr)
 {
 	if (ptr >= 16)
-		ft_search_pointer(ptr / 16);
+	{
+		ft_search_prt(ptr / 16);
+		ft_search_prt(ptr % 16);
+	}
 	else
 	{
 		if (ptr < 10)
-			ft_printchar(ptr + '0');
+			ft_print_char(ptr + '0');
 		else
-			ft_printchar(ptr - 10 + 'a');
+			ft_print_char(ptr - 10 + 'a');
 	}
 }

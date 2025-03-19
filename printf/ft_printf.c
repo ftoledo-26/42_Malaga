@@ -12,7 +12,9 @@
 
 #include "ft_printf.h"
 
-int	ft_printchar(char character)
+static int	ft_format(va_list argument, const char word);
+
+int	ft_print_char(int character)
 {
 	write(1, &character, 1);
 	return (1);
@@ -31,37 +33,35 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			size += ft_select_format(argument, str[i + 1]);
+			size += ft_format(argument, str[i + 1]);
 			i++;
 		}
 		else
-		{
-			size += ft_printchar(str[i]);
-			i++;
-		}
+		size += ft_print_char(str[i]);
+		i++;
 	}
 	va_end(argument);
 	return (size);
 }
 
-int	ft_select_format(va_list argument, const char word)
+static int	ft_format(va_list argument, const char word)
 {
 	int	size;
 
 	size = 0;
 	if (word == 'c')
-		size += ft_printchar(va_arg(argument, int));
+		size += ft_print_char(va_arg(argument, int));
 	else if (word == 's')
-		size += ft_printstrin(va_arg(argument, char *));
+		size += print_string(va_arg(argument, char *));
 	else if (word == 'p')
-		size += ft_printentero(va_arg(argument, unsigned long long));
+		size += ft_print_ptr(va_arg(argument, unsigned long long));
 	else if (word == 'd' || word == 'i')
-		size += ft_printentero(va_arg(argument, int));
+		size += print_numero(va_arg(argument, int));
 	else if (word == 'u')
-		size += ft_printunsig(va_arg(argument, unsigned int));
+		size += print_uns(va_arg(argument, unsigned int));
 	else if (word == 'x' || word == 'X')
-		size += ft_print_hexa(va_arg(argument, unsigned int), word);
+		size += ft_print_hex(va_arg(argument, unsigned int), word);
 	else
-		size += ft_printchar(word);
+		size += ft_print_char(word);
 	return (size);
 }

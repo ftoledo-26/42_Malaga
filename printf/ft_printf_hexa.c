@@ -12,7 +12,41 @@
 
 #include "ft_printf.h"
 
-int	ft_longitud_hexadecimal(unsigned int num)
+static int	ft_len_hex(unsigned int num);
+
+static void	ft_search_hex(unsigned int num, const char word);
+
+int	ft_print_hex(unsigned int num, const char word)
+{
+	if (num == 0)
+		return (ft_print_char('0'));
+	else
+		ft_search_hex(num, word);
+	return (ft_len_hex(num));
+}
+
+static void	ft_search_hex(unsigned int num, const char word)
+{
+	if (num >= 16)
+	{
+		ft_search_hex(num / 16, word);
+		ft_search_hex(num % 16, word);
+	}
+	else
+	{
+		if (num < 10)
+			ft_print_char(num + '0');
+		else
+		{
+			if (word == 'x')
+				ft_print_char(num - 10 + 'a');
+			if (word == 'X')
+				ft_print_char(num - 10 + 'A');
+		}
+	}
+}
+
+static int	ft_len_hex(unsigned int num)
 {
 	int	len;
 
@@ -23,27 +57,4 @@ int	ft_longitud_hexadecimal(unsigned int num)
 		num = num / 16;
 	}
 	return (len);
-}
-
-void	ft_busca(int num, char pala)
-{
-	if (num >= 16)
-	{
-		ft_busca(num / 16, pala);
-		ft_busca(num % 16, pala);
-	}
-	else
-	{
-		if (num < 10)
-			ft_print_hexa(num, '0');
-	}
-}
-
-int	ft_print_hexa(unsigned int num, char pala)
-{
-	if (num == 0)
-		return (ft_printchar('0'));
-	else
-		ft_busca(num, pala);
-	return (ft_longitud_hexadecimal(num));
 }
